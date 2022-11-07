@@ -1,0 +1,61 @@
+$main-color: rgb(66, 66, 66)
+$text-color: rgb(245,245,245)
+$main-font: 'Roboto', sans-serif
+
+body 
+    background-color: $main-color
+    background-size: 100%
+    margin: 0
+
+.header
+    display: flex
+    justify-content: center
+
+.header__title
+    color: $text-color
+    font-size: 50px
+    font-family: $main-font
+
+.main 
+    display: flex
+    justify-content: center
+    width: 100%
+
+.main__board
+    display: grid
+    height: 500px
+    grid-template: repeat(3, 33%) / repeat(3, 33%)
+    min-height: 0
+    min-width: 0
+    width: 500px
+
+.main__cell 
+    align-items: center
+    border: 0 solid $text-color
+    cursor: pointer
+    display: flex
+    justify-content: center
+    height: 100%
+    width: 100%
+
+.main__cell--text
+    color: $text-color
+    font-family: $main-font
+    font-size: 50px
+    font-weight: bold
+    margin: 0
+    padding: 0
+
+.main__controls
+    display: flex
+    justify-content: center
+
+.main__button 
+    background-color: transparent
+    border: none
+    color: $text-color
+    cursor: pointer
+    font-size: 30px
+    font-weight: bold
+    margin-top: 30px
+
