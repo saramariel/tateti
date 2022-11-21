@@ -3,8 +3,9 @@ const restartButton = document.getElementById("btnRestart")
 let currentPlayer = 1
 let movesPlayed = 0
 let isGameStarted = true
-let player1Wins =0
-let player2Wins = 0
+let player1Wins = sessionStorage.getItem("Jugador1") || 0
+let player2Wins = sessionStorage.getItem("Jugador2") || 0
+let empate = sessionStorage.getItem("Empate") || 0
 
 function setCells(board) {
     const cellQuantity = 9
@@ -22,6 +23,17 @@ function setCells(board) {
 }
 
 setCells(board)
+resultados()
+
+function resultados(){
+    var xx= document.getElementById('jugador1');
+    var oo = document.getElementById('jugador2');
+    var ee = document.getElementById('empate');
+    
+    xx.textContent = "Jugador 1: " + player1Wins;
+    oo.textContent = "Jugador 2: " + player2Wins;
+    ee.textContent = "Empate: " + empate;
+}
 
 function restartGame() {
 
@@ -30,6 +42,7 @@ function restartGame() {
     currentPlayer = 1
     isGameStarted = true
 }
+
 
 function checkMove(index, value) {
     const babybox = board.children
@@ -83,12 +96,16 @@ function checkMove(index, value) {
 
     if (!isGameStarted) {
         swal({ title: `Ganó el jugador ${currentPlayer}`, icon: "success" })
+        currentPlayer === 1 ? player1Wins++ : player2Wins++
+        sessionStorage.setItem("Jugador1",player1Wins)
+        sessionStorage.setItem("Jugador2",player2Wins)
+        resultados()
+
     } else if (currentPlayer === 1) {
         currentPlayer++
-        player1Wins++
     } else if (currentPlayer === 2) {
         currentPlayer--
-        player2Wins++
+        
     }
 }
 
@@ -103,10 +120,13 @@ function playerClick(cell, index) {
             cell.children[0].innerHTML = 'O'
             checkMove(index, "X")
         }
-
         if (movesPlayed === 9 && isGameStarted) {
             swal({ title: "Empate", icon: "success" })
             isGameStarted = false
+            empate++
+            sessionStorage.setItem("Empate",empate)
+            resultados()
+
         }
     }
 }
