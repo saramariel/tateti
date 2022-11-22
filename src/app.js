@@ -1,11 +1,35 @@
 const board = document.getElementById("board")
 const restartButton = document.getElementById("btnRestart")
 let currentPlayer = 1
+let playerX = document.querySelector('#playerX')
+let player0 = document.querySelector('#player0')
+let namePlayerX = 'X'
+let namePlayer0 = '0'
 let movesPlayed = 0
+let playersX =[]
+let players0 = []
 let isGameStarted = true
-let player1Wins = sessionStorage.getItem("Jugador1") || 0
-let player2Wins = sessionStorage.getItem("Jugador2") || 0
-let empate = sessionStorage.getItem("Empate") || 0
+let player1Wins = 0
+let player2Wins = 0
+let empate = 0
+
+function players(name,wins){
+    this.name = name
+    this.wins = wins
+}
+
+
+playerX.addEventListener("change", ()=>{
+    namePlayerX = playerX.value
+    playersX.push(new players(namePlayerX,0))
+    resultados()
+})
+
+player0.addEventListener("change", ()=>{
+    namePlayer0 = player0.value
+    players0.push(new players(namePlayer0,0))
+    resultados()
+})
 
 function setCells(board) {
     const cellQuantity = 9
@@ -30,8 +54,8 @@ function resultados(){
     var oo = document.getElementById('jugador2');
     var ee = document.getElementById('empate');
     
-    xx.textContent = "Jugador 1: " + player1Wins;
-    oo.textContent = "Jugador 2: " + player2Wins;
+    xx.textContent = namePlayerX +": "+ player1Wins;
+    oo.textContent = namePlayer0 +": " + player2Wins;
     ee.textContent = "Empate: " + empate;
 }
 
@@ -96,9 +120,17 @@ function checkMove(index, value) {
 
     if (!isGameStarted) {
         swal({ title: `Ganó el jugador ${currentPlayer}`, icon: "success" })
-        currentPlayer === 1 ? player1Wins++ : player2Wins++
-        sessionStorage.setItem("Jugador1",player1Wins)
-        sessionStorage.setItem("Jugador2",player2Wins)
+        if(currentPlayer === 1){
+            player1Wins++
+            let index = playersX.findIndex(player => player.name === namePlayerX)
+            playersX[index].wins = player1Wins
+            sessionStorage.setItem("X",JSON.stringify(playersX))
+        }else{
+            player2Wins++
+            let index = playersX.findIndex(player => player.name === namePlayerX)
+            players0[index].wins = player2Wins
+            sessionStorage.setItem("0",JSON.stringify(players0))
+        }
         resultados()
 
     } else if (currentPlayer === 1) {

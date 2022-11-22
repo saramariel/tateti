@@ -54,7 +54,7 @@ body {
   justify-content: center;
 }
 
-.main__button {
+.main__button, .btnSave {
   background-color: transparent;
   border: none;
   color: rgb(245, 245, 245);
@@ -69,4 +69,17 @@ body {
   text-align: center;
   margin: 20px;
   color: rgb(245, 245, 245);
+}
+
+.jugadores {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.btnSave {
+  font-size: 20px;
+}
+
+input {
+  border-radius: 10px;
 }/*# sourceMappingURL=style.css.map */
